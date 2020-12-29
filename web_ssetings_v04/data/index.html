@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Settings Blynk</title>
+	<meta http-equiv="Content-type" content="text/html; charset=utf-8">
+	<link href="style.css" rel="stylesheet" type="text/css" />
+	<link href="iconfinder_gear_1055051.png" rel="shortcut icon" type="image/x-icon" />
+	<script type="text/javascript" src="script.js"></script>
+
+	<script type="text/javascript">
+		// Запись данных в файл на сервере путем отправки данных
+	function set_ssid(submit){
+    server = "/ssid?ssid="+val('ssid')+"&password="+encodeURIComponent(val('password'));
+    send_request(submit,server);
+    alert("Измененя вступят в силу после перезагрузки. Пожалуйта перезагрузите устройство.");
+   }
+
+   function set_ssid_ap(submit){
+    server = "/ssidap?ssidAP="+val('ssidAP')+"&passwordAP="+encodeURIComponent(val('passwordAP'));
+    //console.log("server" + server);
+    send_request(submit,server);
+    alert("Измененя вступят в силу после перезагрузки. Пожалуйта перезагрузите устройство.");
+   }
+   
+   function set_ssid_blynk(submit){
+    server = "/ssidblynk?authB="+encodeURIComponent(val('authB'))+"&serverB="+encodeURIComponent(val('serverB'))+"&portB="+val('portB');
+    send_request(submit,server);
+    alert("Измененя вступят в силу после перезагрузки. Пожалуйта перезагрузите устройство.");
+   }
+
+   function set_ssid_w(submit){
+    server = "/ssidW?ssidW="+val('ssidW')+"&passwordW="+encodeURIComponent(val('passwordW'));
+    //console.log("server" + server);
+    send_request(submit,server);
+    alert("Измененя вступят в силу после перезагрузки. Пожалуйта перезагрузите устройство.");
+   }
+
+   function set_ssid_ftp(submit){
+    server = "/ssidFTP?ssidFTP="+val('ssidFTP')+"&passwordFTP="+encodeURIComponent(val('passwordFTP'));
+    //console.log("server" + server);
+    send_request(submit,server);
+    alert("Измененя вступят в силу после перезагрузки. Пожалуйта перезагрузите устройство.");
+   }
+
+   function set_ssdp(submit){
+    server = "/ssdp?ssdp="+val('ssdp');
+    send_request(submit,server);
+    alert("Измененя вступят в силу после перезагрузки. Пожалуйта перезагрузите устройство.");
+    //document.getElementById('ssdp_t').innerHTML = val('ssdp'); // Можно так имя устройства вывести
+   }
+
+   //Фунуция для рестарта устройства
+   function restart(submit,texts){
+    if (confirm(texts)) {
+	 server = "/restart?device=ok";
+     send_request(submit,server);
+     return true;
+    } else {
+     return false;
+    }
+   }
+	</script>
+
+</head>
+<body>
+	
+
+
+     <body>
+	<div id="page-wrap">
+		<header>
+		<a id="logo" href="index.html" title="На главную">Blynk Settings</a>
+		<!-- <span class="right">
+			<span class="contact">Выход</span>
+		</span> -->
+		</header>
+		<div class="clear"><br /></div>
+		
+		<div id="wrapper">
+			
+			<div class="clear"><br /></div>			
+			
+			<form>
+		  		<h2>Подключение к WiFi роутеру</h2>
+		     	<input id="ssid" value="{{ssid}}" placeholder="Имя WiFi сети"><br>
+		    	<input id="password" value="{{password}}" onfocus="this.type='text'" type="password" placeholder="Пароль WiFi сети"><br>
+		    	<input id="send" class="button" value="Сохранить" onclick="set_ssid(this);" type="submit">
+	     	</form>
+	     	
+	     	<form>
+		  		<h2>Настройки точки доступа</h2>
+		     	<input id="ssidAP" value="{{ssidAP}}" placeholder="Имя WiFi_AP сети"><br>
+		     	<input id="passwordAP" value="{{passwordAP}}" onfocus="this.type='text'" type="password" placeholder="Пароль WiFi_AP сети. (Если пусто то без пароля)"><br>
+		     	<input id="send" class="button" value="Сохранить" onclick="set_ssid_ap(this);" type="submit">
+	     	</form>
+
+	     	<form>
+		  		<h2>Настройки Blynk</h2>
+		     	<input id="authB" value="{{authB}}" onfocus="this.type='text'" type="password" placeholder="Авторизационный ключ Blynk Auth"><br>
+		     	<input id="serverB" value="{{serverB}}" type="text" placeholder="Сервер Blynk"><br>
+		     	<input id="portB" value="{{portB}}" type="text" placeholder="Порт сервера Blynk"><br>
+		     	<input id="send" class="button" value="Сохранить" onclick="set_ssid_blynk(this);" type="submit">
+	     	</form>
+
+	     	<form>
+		  		<h2>Настройки SSDP</h2>
+		     	<input id="ssdp" value="{{ssdp}}" placeholder="Имя SSDP"><br>
+		     	<input id="send" class="button" value="Сохранить" onclick="set_ssdp(this);" type="submit">
+	     	</form>
+
+	     	<form>
+		  		<h2>Настройки Авторизации</h2>
+		     	<input id="ssidW" value="{{ssidW}}" placeholder="Логин для входа в настройки"><br>
+		     	<input id="passwordW" value="{{passwordW}}" onfocus="this.type='text'" type="password" placeholder="Пароль для вода в настройки"><br>
+		     	<input id="send" class="button" value="Сохранить" onclick="set_ssid_w(this);" type="submit">
+	     	</form>
+			
+	     	<form>
+		  		<h2>Настройки FTP</h2>
+		     	<input id="ssidFTP" value="{{ssidFTP}}" placeholder="Логин для входа в настройки"><br>
+		     	<input id="passwordFTP" value="{{passwordFTP}}" onfocus="this.type='text'" type="password" placeholder="Пароль для вода в настройки"><br>
+		     	<input id="send" class="button" value="Сохранить" onclick="set_ssid_ftp(this);" type="submit">
+	     	</form>
+
+			<form>
+				<input class="button" value="Перезагрузить устройство" onclick="restart(this,'Вы действительно хотите перезагрузить устройство?');" type="submit">
+			</form>
+		</div>
+	</div>
+		<footer>
+		<span class="left">Все права защищены &copy; 2020</span>
+		<span class="right">
+			
+			<a href="https://www.youtube.com/c/Инженерка">
+			YouTube канал Инженерка
+			<img src="youtube_icon.png" alt="YouTube канал Инженерка">
+			</a>
+		</span>
+		</footer>
+
+
+
+</body>
+</html>
+
+
